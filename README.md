@@ -7,6 +7,27 @@ A API foi criada para permitir que o usuário envie uma selfie e, com o auxílio
 # Tecnologias utilizadas
 
 • Python<br>
+• FastAPI<br>
+• Uvicorn<br>
 • JavaScript<br>
 • HTML<br>
-• CSS
+• CSS<br>
+
+# Dependências
+
+• As dependências estão listadas no arquivo /backend/requirements.txt 
+
+# Endpoints
+
+• /health<br>
+
+## Como executar o Projeto
+
+cd backend<br>
+python -m venv venv<br>
+# Windows<br>
+venv\Scripts\activate<br>
+pip install -r requirements.txt<br>
+uvicorn app.main:app --reload
+
+
