@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar para LinkedIn</title>
+
+    <style>
+        :root {
+            --bg: #0b1016;
+            --card: #151a21;
+            --card-2: #1b2129;
+            --border: #2b333d;
+            --border-dashed: #29323c;
+            --text: #f1f3f5;
+            --muted: #8d9aaa;
+            --muted-2: #647083;
+            --blue: #0a66c2;
+            --blue-dark: #0d2d4c;
+            --icon-bg: #202730;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            min-height: 100%;
+            background: var(--bg);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 618px;
+            margin: 0 auto;
+            padding: 32px 32px 16px;
+        }
+
+        /* Cabeçalho */
+        .header {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .linkedin-logo {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 13px;
+            border-radius: 11px;
+            background: #0a66c2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            font-size: 22px;
+            line-height: 1;
+            letter-spacing: -1.5px;
+            box-shadow: 0 2px 10px rgba(10, 102, 194, .18);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 21px;
+            line-height: 1.25;
+            font-weight: 700;
+            letter-spacing: -.25px;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            color: #8994a4;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* Cards */
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 17px;
+        }
+
+        .number {
+            color: #8c9aac;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco,
+                         Consolas, "Liberation Mono", monospace;
+            font-size: 11px;
+            letter-spacing: .3px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.2;
+            font-weight: 700;
+            color: #f0f2f4;
+        }
+
+        /* Botão de status */
+        .status-button {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #343c46;
+            border-radius: 10px;
+            background: #1e242c;
+            color: #e7eaee;
+            font-size: 14px;
+            font-weight: 650;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            transition: .18s ease;
+        }
+
+        .status-button:hover {
+            background: #232a33;
+            border-color: #424c58;
+        }
+
+        .status-button svg {
+            width: 16px;
+            height: 16px;
+            stroke: #8995a4;
+        }
+
+        .api-status {
+            display: none;
+            margin-top: 10px;
+            color: #74c69d;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* Upload */
+        .upload-area {
+            min-height: 166px;
+            border: 2px dashed var(--border-dashed);
+            border-radius: 10px;
+            background: #141a20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: .18s ease;
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: #3d4855;
+            background: #171e25;
+        }
+
+        .upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upload-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--icon-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 13px;
+        }
+
+        .upload-icon svg {
+            width: 21px;
+            height: 21px;
+            stroke: #8c98a8;
+        }
+
+        .upload-title {
+            margin: 0;
+            color: #e5e8ec;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .upload-subtitle {
+            margin: 4px 0 0;
+            color: #708096;
+            font-size: 13px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        /* Espaço que aparece entre Upload e Gerar Avatar no mockup */
+        .spacer {
+            height: 0;
+        }
+
+        /* Gerar Avatar */
+        .generate-button {
+            width: 100%;
+            height: 44px;
+            border: 0;
+            border-radius: 10px;
+            background: var(--blue-dark);
+            color: #52657a;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: not-allowed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: .18s ease;
+        }
+
+        .generate-button.ready {
+            background: #0a66c2;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .generate-button.ready:hover {
+            background: #095aa9;
+        }
+
+        .generate-button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Resultado */
+        .result-card {
+            min-height: 285px;
+            padding-bottom: 28px;
+        }
+
+        .result-area {
+            min-height: 214px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .result-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 13px;
+            border-radius: 50%;
+            background: var(--icon-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-icon svg {
+            width: 25px;
+            height: 25px;
+            stroke: #8995a4;
+        }
+
+        .result-title {
+            margin: 0;
+            color: #8c9aab;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .result-subtitle {
+            margin: 10px 0 0;
+            color: #5f7086;
+            font-size: 12px;
+        }
+
+        #resultImage {
+            display: none;
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        /* Responsividade */
+        @media (max-width: 560px) {
+            .page {
+                padding: 28px 18px 16px;
+            }
+
+            .header {
+                margin-bottom: 28px;
+            }
+
+            .section {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="page">
+
+        <!-- CABEÇALHO -->
+        <header class="header">
+            <div class="linkedin-logo" aria-label="LinkedIn">in</div>
+
+            <h1>Avatar para LinkedIn</h1>
+
+            <p>Gere avatares profissionais otimizados para o LinkedIn</p>
+        </header>
+
+
+        <!-- 01 - STATUS DA API -->
+        <section class="section">
+            <div class="section-title">
+                <span class="number">01</span>
+                <h2>Status da API</h2>
+            </div>
+
+            <button class="status-button" id="btnHealth" type="button">
+                <!-- Ícone de engrenagem -->
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/>
+                    <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 1.7-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56v.08h-2.4v-.08a1.7 1.7 0 0 0-1.03-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-1.7-1.7.06-.06A1.7 1.7 0 0 0 8.46 15a1.7 1.7 0 0 0-1.56-1.03h-.08v-2.4h.08a1.7 1.7 0 0 0 1.56-1.03 1.7 1.7 0 0 0-.34-1.88l-.06-.06 1.7-1.7.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 12.73 5.7v-.08h2.4v.08a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.7 1.7-.06.06a1.7 1.7 0 0 0-.34 1.88 1.7 1.7 0 0 0 1.56 1.03h.08v2.4h-.08A1.7 1.7 0 0 0 19.4 15Z"/>
+                </svg>
+
+                <span>Verificar Status API</span>
+            </button>
+
+            <div class="api-status" id="apiStatus">
+               API funcionando normalmente.
+            </div>
+            <div class="api-status" id="apiStatusError" style="display: none; color: red;">
+                Erro ao acessar a API.
+            </div>
+        </section>
+
+
+        <!-- 02 - UPLOAD DE FOTO -->
+        <section class="section">
+            <div class="section-title">
+                <span class="number">02</span>
+                <h2>Upload de Foto</h2>
+            </div>
+
+            <label class="upload-area" id="uploadArea" for="fileInput">
+                <div class="upload-content">
+
+                    <div class="upload-icon">
+                        <!-- Ícone de upload -->
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke-width="1.7"
+                             stroke-linecap="round"
+                             stroke-linejoin="round"
+                             aria-hidden="true">
+                            <path d="M12 16V4"/>
+                            <path d="m7.5 8.5 4.5-4.5 4.5 4.5"/>
+                            <path d="M5 13v5.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V13"/>
+                        </svg>
+                    </div>
+
+                    <p class="upload-title">Arraste sua foto aqui</p>
+                    <p class="upload-subtitle">
+                        ou clique para selecionar · JPG, PNG, WEBP
+                    </p>
+                </div>
+            </label>
+
+            <input
+                id="fileInput"
+                type="file"
+                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+            >
+        </section>
+
+
+        <!-- 04 - GERAR AVATAR -->
+        <section class="section">
+            <div class="section-title">
+                <span class="number">04</span>
+                <h2>Gerar Avatar</h2>
+            </div>
+
+            <button
+                class="generate-button"
+                id="generateButton"
+                type="button"
+                disabled
+            >
+                <!-- Ícone de brilho -->
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.7"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="m12 3 1.15 4.85L18 9l-4.85 1.15L12 15l-1.15-4.85L6 9l4.85-1.15L12 3Z"/>
+                    <path d="m19 14 .55 2.45L22 17l-2.45.55L19 20l-.55-2.45L16 17l2.45-.55L19 14Z"/>
+                </svg>
+
+                <span>Gerar Avatar</span>
+            </button>
+        </section>
+
+
+        <!-- 05 - RESULTADO -->
+        <section class="section result-card">
+            <div class="section-title">
+                <span class="number">05</span>
+                <h2>Resultado</h2>
+            </div>
+
+            <div class="result-area">
+
+                <div class="result-placeholder" id="resultPlaceholder">
+
+                    <div class="result-icon">
+                        <!-- Ícone de imagem -->
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke-width="1.7"
+                             stroke-linecap="round"
+                             stroke-linejoin="round"
+                             aria-hidden="true">
+                            <rect x="3" y="4" width="18" height="16" rx="2"/>
+                            <circle cx="8.5" cy="9" r="1.5"/>
+                            <path d="m21 16-4.2-4.2a1 1 0 0 0-1.4 0L9 18"/>
+                            <path d="m14 15 1.5-1.5"/>
+                        </svg>
+                    </div>
+
+                    <p class="result-title">
+                        O avatar gerado aparecerá aqui
+                    </p>
+
+                    <p class="result-subtitle">
+                        Faça o upload de uma foto e clique em Gerar Avatar
+                    </p>
+                </div>
+
+                <img id="resultImage" alt="Avatar gerado">
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
+<script src="app.js"></script>
