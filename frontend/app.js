@@ -1,4 +1,4 @@
-const botao = document.getElementById("btnHealth");
+
 
 async function verificarStatus() {
     try {
@@ -25,6 +25,7 @@ async function verificarStatus() {
     }
 }
 
+const botao = document.getElementById("btnHealth");
 if (botao) {
     botao.addEventListener("click", verificarStatus);
 }

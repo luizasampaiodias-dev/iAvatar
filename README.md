@@ -16,15 +16,20 @@ A API foi criada para permitir que o usuário envie uma selfie e, com o auxílio
 # Dependências
 
 • As dependências estão listadas no arquivo /backend/requirements.txt 
+-FastAPI
+-Uvicorn
+-python-multipart
 
 # Endpoints
 
-• /health<br>
+• GET /health<br>
+• POST /upload
 
-## Como executar o Projeto
+# Como executar o Projeto
 
 cd backend<br>
 python -m venv venv<br>
+
 # Windows<br>
 venv\Scripts\activate<br>
 pip install -r requirements.txt<br>

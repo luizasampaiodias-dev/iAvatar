@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -21,3 +21,14 @@ app.add_middleware(
 @app.get("/")
 def health():
     return {"status": "ok"}
+
+@app.post("/upload")
+async def upload(file: UploadFile = File(...)):
+
+    conteudo = await file.read()
+
+    return {
+        "filename": file.filename,
+        "content_type": file.content_type,
+        "size": len(conteudo)
+    }
